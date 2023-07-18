@@ -37,6 +37,11 @@ async def add_worksheet(async_spreadsheet: gspread_asyncio.AsyncioGspreadSpreads
     worksheet = await async_spreadsheet.worksheet(worksheet.title)
     return worksheet
 
+@dp.message_handler(Command("cancel"), state="*")
+@dp.message_handler(text="Отмена", state="*")
+async def cancel(message: types.Message, state: FSMContext):
+    await message.answer("Отменено", reply_markup=start_keyboard)
+    await state.reset_state()
 
 @dp.message_handler(text='📝Новый лид')
 @dp.message_handler(CommandStart())
