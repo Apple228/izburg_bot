@@ -20,7 +20,7 @@ services:
 #    expose:
 #      - 5432
   tgbot:
-    container_name: bot
+    container_name: izburg_bot
     build:
       context: .
     command: python app.py
