@@ -12,7 +12,7 @@ ADMINS = env.list("ADMINS")  # Тут у нас будет список из а�
 
 PATH = Path(pathlib.Path.cwd(), 'creds.json')
 
-DB_USER = env.str("DB_USER")
-DB_PASS = env.str("PGPASSWORD")
-DB_NAME = env.str("DB_NAME")
-DB_HOST = env.str("DB_HOST")
+# DB_USER = env.str("DB_USER")
+# DB_PASS = env.str("PGPASSWORD")
+# DB_NAME = env.str("DB_NAME")
+# DB_HOST = env.str("DB_HOST")
