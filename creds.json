@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "gleaming-mason-318909",
+  "private_key_id": "926f22cacbb67c2ddc3b0013d69065514d707a7e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDKWezlH8AAzv3u\nkwJr4LMehR1xFdEK5X7nJE5s7b4RUaTQIgULXd0FU5VSGzZfvnQDmOnQ+dBluc5r\nA7WZQaX6v7r1lPem16NjrfN48L1OcEeGH1FYZlgnltiutqkMNtF1pYdM36ZnhUXx\nro0Q17Vsozrj9pfGzub/wZ3oYx8pzaAUxO/4p8TWA05M6G2NxW/Caqkab0+WI96P\nXgDA7q41J8zpZrRxBQEUdzx4IeSVcnxuWqODE4MZC1r8EdmmsIWLvnKEYRHAj8hJ\n/W+p/Qd19INQWPzkVMRRpcU7Gilw4dKHOCDQkKp925q0aXriFt63ESfD7+i5LaSm\ncK15N/aDAgMBAAECggEAEYzkzJHz5mi4Qocn+HD9PXeV2vc68c3U3g8FPv0MdVZr\noTe00KG7/UMcxN8iWKyH8GtEqwDien2NRzUuUiliUCdtUPEyMkYqtYcNV8nS3tOY\niIFSiK8bv0HzROKyh8zWCZ+pPAQmhn0F2NU8W/UcQbITS1lZxv8EBF5n0pOM947m\nyMmWf2GrIWQdEKYQEimV+4U1h2LHBzpIFu2U77ylJki42K87FrBUDxehCtL7e1l7\nyHJzjWn5Pj+WQ4BY9MEkVRSEZbAgWZgi+XHixEhnit4Bvxy512f6PeOv/vc775WM\nqn/cnuIBjShmrAiE5htM9s8Ur3yjL2A/dxxIFjU4BQKBgQDlkb1+S8RoSToaOY8x\n6/Txi26wCkae6eRbAbdKoZFjdnKnJcxW+uPHsHXjl9Nsp6HbVtMSgamH6hwv6cgd\nwYxMpWxcc/H7fZzSVub7Flcgv1aTXk8Of7LZTnM+DJFzUdi6MZFG0QxvSY//kRi5\nw/mZAmLRxXPY2/DYDccX2kZxJQKBgQDhpfgFWrPS81cQzpfeu3qKR688B4kWyZGJ\nAie8D4PdNa/o6GM2RmiuCoHsP4WeNAt43oBtkx3DasQ9VIKvhxlZbd/8KJC+QYvG\n6W75be/BYVBc3tqmzNtufXg0v7tQuk11Qm8/W9Zj0hQVI8HYpslMAY7LhB5WxHhO\n6S+IIfVchwKBgCaDq+nrZjkkx+WscHSspHx9qwVHxA9XKCOIhyqzLoQkVBnswnp5\nPwu6dBzJ1QOun/3/dAvvyvRtd2smapdraFFXk3VzUk6iBVRYlgnb9qQc1baFpPfG\nvsesXLM1QpW5ToX2WOwrmE13Zvw2aJKJ6W8dMl0FJmlkhOSKczNyQE0tAoGBAJ2h\naY+j+zcEUvAkwicQZNwwk5Ol1/iZOxew770KQZ3IoWhc3uHNcdcS9AvrnBYWWWVI\nWgMx4HrhHNGTNfAUunqkrPHkDKk79L8x1xpb2D8JEjCuZaRcO3YGJHEE93+/hdjC\nXiCusSfuW6Ug44vLh5eXBv/Y/bCzcy/86f15a4QFAoGASn7ybG0P6IGMu6f83mkn\nke82Rj4e0Zgab4RjgYLN4YB36NzkXQq4x7aXkPtJ7plqHEZWLVhfEcuFg2RsTpKo\nDiagGxooNWyH4CT57ap1Y9AhpUiQmYg/PzSTeQ2NcnrzYYy6//QKJ0IRULzUZM6R\n5iBm3BvG6GGI43C1xkCZrbw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "python-sheets@gleaming-mason-318909.iam.gserviceaccount.com",
+  "client_id": "108044786640995673654",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/python-sheets%40gleaming-mason-318909.iam.gserviceaccount.com"
+}
