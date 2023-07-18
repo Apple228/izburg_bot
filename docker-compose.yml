@@ -32,8 +32,8 @@ services:
     volumes:
       - .:/src
     # Бот стартует после запуска базы
-    depends_on:
-      - db
+#    depends_on:
+#      - db
 
 # указываются используемые сети
 networks:
