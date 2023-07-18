@@ -192,6 +192,6 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     way_of_communication = message.text
     await state.update_data(way_of_communication=way_of_communication)
-    await message.answer("Дополнительные комментарии", reply_markup=messengers_list_keyboard)
+    await message.answer("Дополнительные комментарии", reply_markup=skip_email_keyboard)
     await state.set_state("Дополнительные комментарии")
 
