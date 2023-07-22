@@ -5,7 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
-
+*.json
+*.xml
+*.xhtml
 # Distribution / packaging
 .Python
 build/
@@ -138,3 +140,5 @@ dmypy.json
 .idea/modules.xml
 .idea/vagrant.xml
 .idea/vcs.xml
+.idea/*
+

@@ -37,17 +37,20 @@ async def add_worksheet(async_spreadsheet: gspread_asyncio.AsyncioGspreadSpreads
     worksheet = await async_spreadsheet.worksheet(worksheet.title)
     return worksheet
 
+
 @dp.message_handler(Command("cancel"), state="*")
 @dp.message_handler(text="Отмена", state="*")
 async def cancel(message: types.Message, state: FSMContext):
     await message.answer("Отменено", reply_markup=start_keyboard)
     await state.reset_state()
 
+
 @dp.message_handler(text='📝Новый лид')
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message, state: FSMContext):
     await message.answer("Введите ФИО клиента", reply_markup=ReplyKeyboardRemove())
     await state.set_state("Имя клиента")
+
 
 @dp.message_handler(Command("stop"), state='*')
 @dp.message_handler(state="Дополнительные комментарии")
@@ -63,15 +66,16 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
     await message.answer(f"1. {message.from_user.full_name}\n"
                          f"2. {today.strftime('%d.%m.%y')}\n"
                          f"3. {data.get('client_name')}\n"
-                         f"4. {data.get('have_area')}\n"
-                         f"5. {data.get('location')}\n"
-                         f"6. {data.get('construction_technology')}\n"
-                         f"7. {data.get('prod_line')}\n"
-                         f"8. {data.get('project')}\n"
-                         f"9. {data.get('date_of_starting')}\n"
-                         f"10. {data.get('source_of_financing')}\n"
-                         f"11. {data.get('construction_budget')}\n"
-                         f"12. {data.get('phone_number')}\n"
+                         f"4. {data.get('phone_number')}\n"
+                         f"5. {data.get('have_area')}\n"
+                         f"6. {data.get('location')}\n"
+                         f"7. {data.get('construction_technology')}\n"
+                         f"8. {data.get('prod_line')}\n"
+                         f"9. {data.get('project')}\n"
+                         f"10. {data.get('date_of_starting')}\n"
+                         f"11. {data.get('source_of_financing')}\n"
+                         f"12. {data.get('construction_budget')}\n"
+
                          f"13. {data.get('email')}\n"
                          f"14. {data.get('way_of_communication')}\n"
                          f"15. {data.get('comment')}\n",
@@ -87,6 +91,7 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
         message.from_user.full_name,
         today.strftime('%d.%m.%y'),
         data.get('client_name'),
+        data.get('phone_number'),
         data.get('have_area'),
         data.get('location'),
         data.get('construction_technology'),
@@ -95,11 +100,10 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
         data.get('date_of_starting'),
         data.get('source_of_financing'),
         data.get('construction_budget'),
-        data.get('phone_number'),
         data.get('email'),
         data.get('way_of_communication'),
         data.get('comment'),
-              ]
+    ]
     await worksheet.append_row(values)
 
 
@@ -107,6 +111,15 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     client_name = message.text
     await state.update_data(client_name=client_name)
+    await message.answer("Номер телефона", reply_markup=ReplyKeyboardRemove())
+    await state.set_state("Номер телефона")
+
+
+@dp.message_handler(state="Номер телефона")
+async def state_data_gsheets(message: types.Message, state: FSMContext):
+    phone_number = message.text
+    await state.update_data(phone_number=phone_number)
+
     await message.answer("Наличие участка", reply_markup=have_area_keyboard)
     await state.set_state("Наличие участка")
 
@@ -171,15 +184,10 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     construction_budget = message.text
     await state.update_data(construction_budget=construction_budget)
-    await message.answer("Номер телефона", reply_markup=ReplyKeyboardRemove())
-    await state.set_state("Номер телефона")
 
-@dp.message_handler(state="Номер телефона")
-async def state_data_gsheets(message: types.Message, state: FSMContext):
-    phone_number = message.text
-    await state.update_data(phone_number=phone_number)
     await message.answer("Электронная почта", reply_markup=skip_email_keyboard)
     await state.set_state("Электронная почта")
+
 
 @dp.message_handler(state="Электронная почта")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
@@ -188,10 +196,10 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
     await message.answer("Удобный способ коммуникации", reply_markup=messengers_list_keyboard)
     await state.set_state("Удобный способ коммуникации")
 
+
 @dp.message_handler(state="Удобный способ коммуникации")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     way_of_communication = message.text
     await state.update_data(way_of_communication=way_of_communication)
     await message.answer("Дополнительные комментарии", reply_markup=skip_email_keyboard)
     await state.set_state("Дополнительные комментарии")
-
