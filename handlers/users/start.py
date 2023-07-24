@@ -1,12 +1,14 @@
 import datetime
 
 import asyncpg
+import requests
 import gspread_asyncio
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import CommandStart, Command
 from aiogram.types import ReplyKeyboardRemove
 from google.oauth2.service_account import Credentials
+from data.config import BITRIX24URI
 
 from data.config import PATH
 from keyboards.default.form_keyboard import have_area_keyboard, construction_technology_keyboard, prod_line_keyboard, \
@@ -106,6 +108,38 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
     ]
     await worksheet.append_row(values)
 
+    name = data.get('client_name').split(' ')
+    bitrix24_fields = {
+        "fields": {
+            "TITLE": message.from_user.full_name,
+            "LAST_NAME": name[0],
+            "NAME": name[1],
+            "SECOND_NAME": name[2],
+            "STATUS_ID": "NEW",
+            "OPENED": "Y",
+            "ASSIGNED_BY_ID": 1,
+            "CURRENCY_ID": "RUB",
+            "OPPORTUNITY": data.get('construction_budget'),
+            "COMMENT": data.get('comment'),
+            "UF_CRM_1690179923": data.get('construction_budget'),
+            "UF_CRM_1690179895": data.get('source_of_financing'),
+            "UF_CRM_1690179882": data.get('date_of_starting'),
+            "UF_CRM_1689916786": data.get('project'),
+            "UF_CRM_1690179854": data.get('prod_line'),
+            "UF_CRM_1690179841": data.get('construction_technology'),
+            "UF_CRM_1690179802": data.get('location'),
+            "UF_CRM_1690179826": data.get('have_area'),
+            "UF_CRM_1690179814": data.get('way_of_communication'),
+            "SOURCE_ID": 5,
+            "UTM_SOURCE": 'tg_bots',
+            "PHONE": [{"VALUE": data.get('phone_number'), "VALUE_TYPE": "WORK"}],
+            "EMAIL": [{"VALUE": data.get('email'), "VALUE_TYPE": "WORK"}]
+        },
+        "params": {
+            "REGISTER_SONET_EVENT": "Y"
+        }
+    }
+    requests.post(BITRIX24URI + 'crm.lead.add.json', json=(bitrix24_fields))
 
 @dp.message_handler(state="Имя клиента")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
