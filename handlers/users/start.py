@@ -108,23 +108,19 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
     ]
     await worksheet.append_row(values)
 
-    name = data.get('client_name').split(' ')
     bitrix24_fields = {
         "fields": {
             "TITLE": message.from_user.full_name,
-            "LAST_NAME": name[0],
-            "NAME": name[1],
-            "SECOND_NAME": name[2],
+            "NAME": data.get('client_name'),
             "STATUS_ID": "NEW",
-            "OPENED": "Y",
             "ASSIGNED_BY_ID": 1,
             "CURRENCY_ID": "RUB",
             "OPPORTUNITY": data.get('construction_budget'),
-            "COMMENT": data.get('comment'),
+            "COMMENTS": data.get('comment'),
             "UF_CRM_1690179923": data.get('construction_budget'),
             "UF_CRM_1690179895": data.get('source_of_financing'),
             "UF_CRM_1690179882": data.get('date_of_starting'),
-            "UF_CRM_1689916786": data.get('project'),
+            "UF_CRM_1690179908": data.get('project'),
             "UF_CRM_1690179854": data.get('prod_line'),
             "UF_CRM_1690179841": data.get('construction_technology'),
             "UF_CRM_1690179802": data.get('location'),
