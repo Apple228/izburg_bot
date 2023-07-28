@@ -113,7 +113,7 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
             "TITLE": message.from_user.full_name,
             "NAME": data.get('client_name'),
             "STATUS_ID": "NEW",
-            "ASSIGNED_BY_ID": 1,
+            "ASSIGNED_BY_ID": 28,
             "CURRENCY_ID": "RUB",
             "OPPORTUNITY": data.get('construction_budget'),
             "COMMENTS": data.get('comment'),
@@ -126,10 +126,10 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
             "UF_CRM_1690179802": data.get('location'),
             "UF_CRM_1690179826": data.get('have_area'),
             "UF_CRM_1690179814": data.get('way_of_communication'),
+            "UF_CRM_1690559724": data.get('phone_number'),
+            "UF_CRM_1690559734": data.get('email'),
             "SOURCE_ID": 5,
             "UTM_SOURCE": 'tg_bots',
-            "PHONE": [{"VALUE": data.get('phone_number'), "VALUE_TYPE": "WORK"}],
-            "EMAIL": [{"VALUE": data.get('email'), "VALUE_TYPE": "WORK"}]
         },
         "params": {
             "REGISTER_SONET_EVENT": "Y"
