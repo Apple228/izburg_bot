@@ -1,4 +1,6 @@
 import datetime
+import json
+import logging
 
 import asyncpg
 import requests
@@ -61,6 +63,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
         comment = ""
     else:
         comment = message.text
+        if comment == "-":
+            comment = "Нет данных"
     await state.update_data(comment=comment)
 
     today = datetime.date.today()
@@ -106,7 +110,7 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
         data.get('way_of_communication'),
         data.get('comment'),
     ]
-    await worksheet.append_row(values)
+    # await worksheet.append_row(values)
 
     bitrix24_fields = {
         "fields": {
@@ -135,11 +139,20 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
             "REGISTER_SONET_EVENT": "Y"
         }
     }
-    requests.post(BITRIX24URI + 'crm.lead.add.json', json=(bitrix24_fields))
+    logging.info(f"json {bitrix24_fields}")
+    result = requests.post(BITRIX24URI + 'crm.lead.add.json', json=(bitrix24_fields))
+    logging.info(f"result requests {result.text}")
+    logging.info(f"result requests {result.status_code}")
+    if result.status_code == 200:
+        requests_json = json.loads(result.text)
+        values.append(f"https://izburg24.bitrix24.ru/crm/lead/details/{requests_json['result']}/")
+    await worksheet.append_row(values)
 
 @dp.message_handler(state="Имя клиента")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     client_name = message.text
+    if client_name == "-":
+        client_name = "Нет данных"
     await state.update_data(client_name=client_name)
     await message.answer("Номер телефона", reply_markup=ReplyKeyboardRemove())
     await state.set_state("Номер телефона")
@@ -148,6 +161,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Номер телефона")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     phone_number = message.text
+    if phone_number == "-":
+        phone_number = "Нет данных"
     await state.update_data(phone_number=phone_number)
 
     await message.answer("Наличие участка", reply_markup=have_area_keyboard)
@@ -157,6 +172,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Наличие участка")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     have_area = message.text
+    if have_area == "-":
+        have_area = "Нет данных"
     await state.update_data(have_area=have_area)
     await message.answer("Локация", reply_markup=ReplyKeyboardRemove())
     await state.set_state("Локация")
@@ -165,6 +182,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Локация")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     location = message.text
+    if location == "-":
+        location = "Нет данных"
     await state.update_data(location=location)
     await message.answer("Технология строительства", reply_markup=construction_technology_keyboard)
     await state.set_state("Технология строительства")
@@ -173,6 +192,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Технология строительства")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     construction_technology = message.text
+    if construction_technology == "-":
+        construction_technology = "Нет данных"
     await state.update_data(construction_technology=construction_technology)
     await message.answer("Линейка", reply_markup=prod_line_keyboard)
     await state.set_state("Линейка")
@@ -181,6 +202,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Линейка")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     prod_line = message.text
+    if prod_line == "-":
+        prod_line = "Нет данных"
     await state.update_data(prod_line=prod_line)
     await message.answer("Проект", reply_markup=ReplyKeyboardRemove())
     await state.set_state("Проект")
@@ -189,6 +212,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Проект")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     project = message.text
+    if project == "-":
+        project = "Нет данных"
     await state.update_data(project=project)
     await message.answer("Дата начала строительства", reply_markup=planing_build_keyboard)
     await state.set_state("Дата начала строительства")
@@ -197,6 +222,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Дата начала строительства")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     date_of_starting = message.text
+    if date_of_starting == "-":
+        date_of_starting = "Нет данных"
     await state.update_data(date_of_starting=date_of_starting)
     await message.answer("Источник финансирования", reply_markup=source_of_financing_keyboard)
     await state.set_state("Источник финансирования")
@@ -205,23 +232,33 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Источник финансирования")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     source_of_financing = message.text
+    if source_of_financing == "-":
+        source_of_financing = "Нет данных"
     await state.update_data(source_of_financing=source_of_financing)
-    await message.answer("Бюджет строительства", reply_markup=ReplyKeyboardRemove())
+    await message.answer("Бюджет строительства (число)", reply_markup=ReplyKeyboardRemove())
     await state.set_state("Бюджет строительства")
 
 
 @dp.message_handler(state="Бюджет строительства")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     construction_budget = message.text
-    await state.update_data(construction_budget=construction_budget)
-
-    await message.answer("Электронная почта", reply_markup=skip_email_keyboard)
-    await state.set_state("Электронная почта")
+    if construction_budget == "-":
+        construction_budget = "0"
+    if not construction_budget.isnumeric():
+        await message.answer("Было введено не число, пожалуйста напишите число")
+        await message.answer("Бюджет строительства (число)", reply_markup=ReplyKeyboardRemove())
+        await state.set_state("Бюджет строительства")
+    else:
+        await state.update_data(construction_budget=construction_budget)
+        await message.answer("Электронная почта", reply_markup=skip_email_keyboard)
+        await state.set_state("Электронная почта")
 
 
 @dp.message_handler(state="Электронная почта")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     email = message.text
+    if email == "-":
+        email = "Нет данных"
     await state.update_data(email=email)
     await message.answer("Удобный способ коммуникации", reply_markup=messengers_list_keyboard)
     await state.set_state("Удобный способ коммуникации")
@@ -230,6 +267,8 @@ async def state_data_gsheets(message: types.Message, state: FSMContext):
 @dp.message_handler(state="Удобный способ коммуникации")
 async def state_data_gsheets(message: types.Message, state: FSMContext):
     way_of_communication = message.text
+    if way_of_communication == "-":
+        way_of_communication = "Нет данных"
     await state.update_data(way_of_communication=way_of_communication)
     await message.answer("Дополнительные комментарии", reply_markup=skip_email_keyboard)
     await state.set_state("Дополнительные комментарии")

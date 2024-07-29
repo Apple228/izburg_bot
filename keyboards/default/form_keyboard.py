@@ -59,12 +59,12 @@ source_of_financing_keyboard = ReplyKeyboardMarkup(resize_keyboard=True,
 planing_build_keyboard = ReplyKeyboardMarkup(resize_keyboard=True,
                                              keyboard=[
                                                  [
-                                                     KeyboardButton(text="2023"),
-                                                     KeyboardButton(text="1-я половина 2024"),
+                                                     KeyboardButton(text="2024"),
+                                                     KeyboardButton(text="1-я половина 2025"),
                                                  ],
                                                  [
-                                                     KeyboardButton(text="2025"),
-                                                     KeyboardButton(text="2-я половина 2024")
+                                                     KeyboardButton(text="2026"),
+                                                     KeyboardButton(text="2-я половина 2025")
                                                  ]
                                              ])
 
